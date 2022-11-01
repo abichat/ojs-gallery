@@ -1,7 +1,7 @@
 ---
 title: "Observable JS Gallery"
 author: "Antoine Bichat"
-abstract: "This document aims to pool together basic and more complex examples of how [Observable](https://observablehq.com/tutorials) works inside [Quarto](https://quarto.org) document to render (interactive) plots."
+abstract: "This document aims to pool together basic and more complex examples of how [Observable](https://observablehq.com/tutorials) works inside [Quarto](https://quarto.org) document to render (interactive) plots. Corresponding code can be found [here](https://github.com/abichat/ojs-gallery)."
 theme: lumen
 format: 
   html:
@@ -199,7 +199,7 @@ Plot.plot({
 ```
 
 
-### Facetting
+### Faceting
 
 ```{ojs}
 Plot.plot({
