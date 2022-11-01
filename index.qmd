@@ -1,0 +1,312 @@
+---
+title: "Observable JS Gallery"
+author: "Antoine Bichat"
+abstract: "This document aims to pool together basic and more complex examples of how [Observable](https://observablehq.com/tutorials) works inside [Quarto](https://quarto.org) document to render (interactive) plots."
+theme: lumen
+format: 
+  html:
+    toc: true
+    toc-location: left
+execute: 
+  message: false
+  warning: false
+---
+
+## Datasets
+
+R data sets needs to be made available to OJS with `ojs_define`
+
+```{r}
+ojs_define(penguinst = palmerpenguins::penguins)
+ojs_define(gapmindert = gapminder::gapminder)
+```
+
+and then be transposed in OJS
+
+```{ojs}
+penguins = transpose(penguinst)
+gapminder = transpose(gapmindert)
+```
+
+## Scatterplots
+
+### Basics
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dot(penguins, {
+      x: "bill_length_mm",
+      y: "bill_depth_mm",
+      fill: "species"
+    })
+  ],
+  color: {
+    legend: true,
+    scheme: "viridis"
+  },
+  x: {
+    label: "Bill length (mm)"
+  },
+  y: {
+    label: "Bill depth (mm)"
+  },
+  caption: "Penguin bills by species"
+})
+```
+
+### Choose color with radio button
+
+```{ojs}
+viewof choice_pg_col = Inputs.radio(["species", "island", "sex"], {
+  label: "Select one",
+  value: "species"
+})
+```
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dot(penguins, {
+      x: "bill_length_mm",
+      y: "bill_depth_mm",
+      fill: choice_pg_col
+    })
+  ],
+  color: {
+    legend: true
+  }
+})
+```
+
+
+### Filter with a slider
+
+:::{.callout-tip collapse="false"}
+#### How to make a slider?
+
+```{ojs}
+viewof xxx = Inputs.range([0, 100], {step: 10, label: "Play"})
+```
+::: 
+
+:::{.callout-tip collapse="false"}
+#### How to compute statistics?
+
+```{ojs}
+d3.min(gapminder, (d) => d.year)
+d3.max(gapminder, (d) => d.year)
+d3.extent(gapminder, (d) => d.year)
+```
+::: 
+
+```{ojs}
+viewof gpm_year = Inputs.range(
+  d3.extent(gapminder, (d) => d.year),
+  {label: "Year", step: 5, value: d3.min(gapminder, (d) => d.year)}
+)
+```
+
+```{ojs}
+gpm_filt = gapminder.filter((d) => d.year === gpm_year)
+```
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dot(gpm_filt, {
+      x: "gdpPercap",
+      y: "lifeExp",
+      fill: "continent"
+    })
+  ],
+  x: {
+    type: "log"
+  },
+  color: {
+    legend: true,
+    scheme: "dark2"
+  },
+  caption: `Gapminder data for year ${gpm_year}`
+})
+```
+
+
+### With tooltip
+
+```{ojs}
+import {addTooltips} from "@mkfreeman/plot-tooltip"
+```
+
+```{ojs}
+addTooltips(
+  Plot.plot({
+    marks: [
+      Plot.dot(gpm_filt, {
+        x: "gdpPercap",
+        y: "lifeExp",
+        fill: "continent",
+        title: "country"
+      })
+    ],
+    x: {
+      type: "log"
+    },
+    color: {
+      legend: true,
+      scheme: "dark2"
+    },
+    caption: `Gapminder data for year ${gpm_year}`
+  })
+)
+```
+
+## Histograms
+
+### Basics
+
+```{ojs}
+Plot.plot({
+  marks:[
+    Plot.rectY(
+      penguins,
+      Plot.binX(
+        {y: "count"}, 
+        {x: "bill_length_mm"}
+      )
+    )
+  ]
+})
+```
+
+```{ojs}
+Plot.plot({
+  marks:[
+    Plot.rectY(
+      penguins,
+      Plot.binX(
+        {y: "count"}, 
+        {x: "bill_length_mm", fill: "species"}
+      )
+    ),
+    Plot.ruleY([0])
+  ],
+  color: {
+    legend: true,
+    scheme: "category10"
+  }
+})
+```
+
+
+### Facetting
+
+```{ojs}
+Plot.plot({
+  marks:[
+    Plot.rectY(
+      penguins,
+      Plot.binX(
+        {y: "count"}, 
+        {x: "bill_length_mm", fill: "species"}
+      )
+    ),
+    Plot.ruleY([0])
+  ],
+  color: {
+    legend: true,
+    scheme: "category10"
+  },
+  facet: {
+    data: penguins,
+    y: "species",
+    marginRight: 100,
+    label: null
+  }
+})
+```
+
+```{ojs}
+Plot.plot({
+  marks:[
+    Plot.rectY(
+      penguins,
+      Plot.binX(
+        {y: "count"}, 
+        {x: "bill_length_mm", fill: "species"}
+      )
+    ),
+    Plot.ruleY([0]),
+    Plot.frame({ stroke: "#d3d3d3" })
+  ],
+  color: {
+    legend: true,
+    scheme: "category10"
+  },
+  facet: {
+    data: penguins,
+    x: "island",
+    y: "species",
+    marginRight: 100,
+    label: null
+  }
+})
+```
+
+## Boxplots
+
+### Basics
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.boxY(gpm_filt, {
+      x: "continent", 
+      y: "gdpPercap"
+    })
+  ],
+  y: {type: "log"}
+})
+```
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.boxX(gpm_filt, {
+      x: "gdpPercap", 
+      y: "continent"
+    })
+  ],
+  x: {type: "log"},
+  y: {label: null},
+  marginLeft: 75
+})
+```
+
+### Choose variable and scale with a drop-down menu
+
+```{ojs}
+viewof choice_gm_box = Inputs.select(["gdpPercap", "pop", "lifeExp"], {
+                           value: "gdpPercap", 
+                           label: "Variable"
+                         }
+                         )
+```
+
+```{ojs}
+type_scale = choice_gm_box !== "lifeExp" ? "log" : "linear"
+```
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.boxY(gpm_filt, {
+      x: "continent", 
+      y: choice_gm_box,
+      fill: "continent"
+    })
+  ],
+  y: {type: type_scale}
+})
+```
+
