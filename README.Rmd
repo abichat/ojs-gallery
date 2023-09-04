@@ -26,12 +26,13 @@ The rendered version can be seen [here](https://abichat.github.io/ojs-gallery/).
 - [ ] Density plots
 - [X] Boxplots
 - [ ] Violin plots
-- [ ] Barplots
+- [X] Barplots
 
 ### Interactivity
 
 - [X] Radio buttons
-- [X] Slider
+- [X] Checkboxes
+- [X] Sliders
 - [X] Tooltips
 
 ### Miscellanous

@@ -2,6 +2,7 @@
 title: "Observable JS Gallery"
 author: "Antoine Bichat"
 abstract: "This document aims to pool together basic and more complex examples of how [Observable](https://observablehq.com/tutorials) works inside [Quarto](https://quarto.org) document to render (interactive) plots. Corresponding code can be found [here](https://github.com/abichat/ojs-gallery)."
+date: today
 theme: lumen
 format: 
   html:
@@ -252,6 +253,54 @@ Plot.plot({
   }
 })
 ```
+
+
+## Barplots
+
+### Basics
+
+```{ojs}
+gpm_fr = gapminder.filter((d) => d.country === "France")
+
+Plot.plot({
+  marks: [
+    Plot.barY(gpm_fr, {
+      x: "year", 
+      y: "pop"
+    })
+  ],
+  caption: "French population"
+})
+```
+
+### Choose from checkbox
+
+```{ojs}
+viewof choice_cont = Inputs.checkbox(
+  ["Africa", "Americas", "Asia", "Europe", "Oceania"], 
+  {value: ["Europe"], label: html`<b>Continent</b>`}
+)
+```
+
+
+```{ojs}
+gpm_2007_cont = gapminder.filter((d) => d.year === 2007).filter((d) => choice_cont.includes(d.continent))
+
+Plot.plot({
+  marks: [
+    Plot.barX(gpm_2007_cont, {
+      x: "gdpPercap", 
+      y: "country",
+      fill: "continent",
+      sort: {y: "x"}
+    })
+  ],
+  y: {label: null},
+  caption: "GDP per capita in 2007"
+})
+```
+
+
 
 ## Boxplots
 

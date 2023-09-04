@@ -14,34 +14,35 @@ The rendered version can be seen
 
 ### Geometries
 
--   [x] Scatterplots
--   [x] Histograms
--   [ ] Density plots
--   [x] Boxplots
--   [ ] Violin plots
--   [ ] Barplots
+- [x] Scatterplots
+- [x] Histograms
+- [ ] Density plots
+- [x] Boxplots
+- [ ] Violin plots
+- [x] Barplots
 
 ### Interactivity
 
--   [x] Radio buttons
--   [x] Slider
--   [x] Tooltips
+- [x] Radio buttons
+- [x] Checkboxes
+- [x] Sliders
+- [x] Tooltips
 
 ### Miscellanous
 
--   [x] Labels
--   [x] Faceting
--   [ ] Custom color scale
+- [x] Labels
+- [x] Faceting
+- [ ] Custom color scale
 
 ## Useful links
 
--   [Observable
-    cheatsheets](https://observablehq.com/@observablehq/plot-cheatsheets)
--   [ggplot2
-    equivalence](https://observablehq.com/@observablehq/ggplot2-plot-highlight)
--   [Overview of inputs](https://observablehq.com/@observablehq/inputs)
--   [Top Observable notebooks](https://observablehq.com/top)
--   [OJS cells in
-    Quarto](https://quarto.org/docs/interactive/ojs/ojs-cells.html)
--   [Make R data available for
-    OJS](https://quarto.org/docs/interactive/ojs/data-sources.html#python-and-r)
+- [Observable
+  cheatsheets](https://observablehq.com/@observablehq/plot-cheatsheets)
+- [ggplot2
+  equivalence](https://observablehq.com/@observablehq/ggplot2-plot-highlight)
+- [Overview of inputs](https://observablehq.com/@observablehq/inputs)
+- [Top Observable notebooks](https://observablehq.com/top)
+- [OJS cells in
+  Quarto](https://quarto.org/docs/interactive/ojs/ojs-cells.html)
+- [Make R data available for
+  OJS](https://quarto.org/docs/interactive/ojs/data-sources.html#python-and-r)
