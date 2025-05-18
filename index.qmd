@@ -140,26 +140,25 @@ import {addTooltips} from "@mkfreeman/plot-tooltip"
 ```
 
 ```{ojs}
-addTooltips(
-  Plot.plot({
-    marks: [
-      Plot.dot(gpm_filt, {
-        x: "gdpPercap",
-        y: "lifeExp",
-        fill: "continent",
-        title: "country"
-      })
-    ],
-    x: {
-      type: "log"
-    },
-    color: {
-      legend: true,
-      scheme: "dark2"
-    },
-    caption: `Gapminder data for year ${gpm_year}`
-  })
-)
+Plot.plot({
+  marks: [
+    Plot.dot(gpm_filt, {
+      x: "gdpPercap",
+      y: "lifeExp",
+      fill: "continent",
+      tip: true,
+      channels: {country: "country"}
+    })
+  ],
+  x: {
+    type: "log"
+  },
+  color: {
+    legend: true,
+    scheme: "dark2"
+  },
+  caption: `Gapminder data for year ${gpm_year}`
+})
 ```
 
 ## Histograms
