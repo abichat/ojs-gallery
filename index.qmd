@@ -18,7 +18,7 @@ execute:
 R data sets needs to be made available to OJS with `ojs_define`
 
 ```{r}
-ojs_define(penguinst = palmerpenguins::penguins)
+ojs_define(penguinst = penguins)
 ojs_define(gapmindert = gapminder::gapminder)
 ```
 
@@ -37,8 +37,8 @@ gapminder = transpose(gapmindert)
 Plot.plot({
   marks: [
     Plot.dot(penguins, {
-      x: "bill_length_mm",
-      y: "bill_depth_mm",
+      x: "bill_len",
+      y: "bill_dep",
       fill: "species"
     })
   ],
@@ -69,8 +69,8 @@ viewof choice_pg_col = Inputs.radio(["species", "island", "sex"], {
 Plot.plot({
   marks: [
     Plot.dot(penguins, {
-      x: "bill_length_mm",
-      y: "bill_depth_mm",
+      x: "bill_len",
+      y: "bill_dep",
       fill: choice_pg_col
     })
   ],
@@ -173,7 +173,7 @@ Plot.plot({
       penguins,
       Plot.binX(
         {y: "count"}, 
-        {x: "bill_length_mm"}
+        {x: "bill_len"}
       )
     )
   ]
@@ -187,7 +187,7 @@ Plot.plot({
       penguins,
       Plot.binX(
         {y: "count"}, 
-        {x: "bill_length_mm", fill: "species"}
+        {x: "bill_len", fill: "species"}
       )
     ),
     Plot.ruleY([0])
@@ -209,7 +209,7 @@ Plot.plot({
       penguins,
       Plot.binX(
         {y: "count"}, 
-        {x: "bill_length_mm", fill: "species"}
+        {x: "bill_len", fill: "species"}
       )
     ),
     Plot.ruleY([0])
@@ -234,7 +234,7 @@ Plot.plot({
       penguins,
       Plot.binX(
         {y: "count"}, 
-        {x: "bill_length_mm", fill: "species"}
+        {x: "bill_len", fill: "species"}
       )
     ),
     Plot.ruleY([0]),
