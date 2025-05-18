@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # Observable JS Gallery
 
 This repo aims to pool together basic and more complex examples of how
